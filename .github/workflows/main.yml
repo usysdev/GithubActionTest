@@ -5,10 +5,10 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,6 +32,18 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
 
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+          with:
+            path: ~/.m2
+            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+            restore-keys: ${{ runner.os }}-m2
+
       # Runs a single command using the runners shell
       - name: Site with Maven
         run: mvn --batch-mode clean site --file pom.xml
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: site
+          path: target/site/
