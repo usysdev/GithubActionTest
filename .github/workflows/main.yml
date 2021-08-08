@@ -22,13 +22,12 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: setup JDK
-        run: |
-          download_url="https://usysdev.github.io/jdk/java-1.8.0-openjdk-1.8.0.292-2.b10.dev.redhat.windows.x86_64.zip"
-          wget -O $RUNNER_TEMP/java_package.zip $download_url
+        run:
+          wget -O $RUNNER_TEMP/java_package.zip "https://usysdev.github.io/jdk/java-1.8.0-openjdk-1.8.0.292-2.b10.dev.redhat.windows.x86_64.zip"
       - uses: actions/setup-java@v2
         with:
           distribution: 'jdkfile'
-          jdkFile: ${{ runner.temp }}/java_package.tar.gz
+          jdkFile: ${{ runner.temp }}/java_package.
           java-version: '8'
           architecture: x64
 
