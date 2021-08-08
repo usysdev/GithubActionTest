@@ -21,9 +21,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - run: |
-        download_url="https://usysdev.github.io/jdk/java-1.8.0-openjdk-1.8.0.292-2.b10.dev.redhat.windows.x86_64.zip"
-        wget -O $RUNNER_TEMP/java_package.zip $download_url
+      - name: setup JDK
+        run: |
+          download_url="https://usysdev.github.io/jdk/java-1.8.0-openjdk-1.8.0.292-2.b10.dev.redhat.windows.x86_64.zip"
+          wget -O $RUNNER_TEMP/java_package.zip $download_url
       - uses: actions/setup-java@v2
         with:
           distribution: 'jdkfile'
